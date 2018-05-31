@@ -1,25 +1,51 @@
 package com.ice.sell.dataobject;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
-@Table(name = "product_info", schema = "sell", catalog = "")
+@DynamicUpdate
+//@Table(name = "product_info")
 public class ProductInfo {
+
     private String productId;
+    /**
+     * 商品名称
+     */
     private String productName;
+    /**
+     * 商品价格
+     */
     private BigDecimal productPrice;
+    /**
+     * 商品库存
+     */
     private int productStock;
+    /**
+     * 商品描述
+     */
     private String productDescription;
+    /**
+     * 商品小图
+     */
     private String productIcon;
+    /**
+     * 商品状态 0正常 1下架
+     */
+    private Integer productStatus;
+    /**
+     * 类目编号(商品和类目的关系由此关联)
+     */
     private int categoryType;
+
     private Timestamp createTime;
     private Timestamp updateTime;
 
     @Id
-    @Column(name = "product_id")
+    @Column//(name = "product_id")
     public String getProductId() {
         return productId;
     }
@@ -29,7 +55,7 @@ public class ProductInfo {
     }
 
     @Basic
-    @Column(name = "product_name")
+    @Column//(name = "product_name")
     public String getProductName() {
         return productName;
     }
@@ -39,7 +65,7 @@ public class ProductInfo {
     }
 
     @Basic
-    @Column(name = "product_price")
+    @Column//(name = "product_price")
     public BigDecimal getProductPrice() {
         return productPrice;
     }
@@ -49,7 +75,7 @@ public class ProductInfo {
     }
 
     @Basic
-    @Column(name = "product_stock")
+    @Column//(name = "product_stock")
     public int getProductStock() {
         return productStock;
     }
@@ -59,7 +85,7 @@ public class ProductInfo {
     }
 
     @Basic
-    @Column(name = "product_description")
+    @Column//(name = "product_description")
     public String getProductDescription() {
         return productDescription;
     }
@@ -69,7 +95,17 @@ public class ProductInfo {
     }
 
     @Basic
-    @Column(name = "product_icon")
+    @Column
+    public Integer getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(Integer productStatus) {
+        this.productStatus = productStatus;
+    }
+
+    @Basic
+    @Column//(name = "product_icon")
     public String getProductIcon() {
         return productIcon;
     }
@@ -79,7 +115,7 @@ public class ProductInfo {
     }
 
     @Basic
-    @Column(name = "category_type")
+    @Column//(name = "category_type")
     public int getCategoryType() {
         return categoryType;
     }
@@ -89,7 +125,7 @@ public class ProductInfo {
     }
 
     @Basic
-    @Column(name = "create_time")
+    @Column//(name = "create_time")
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -99,7 +135,7 @@ public class ProductInfo {
     }
 
     @Basic
-    @Column(name = "update_time")
+    @Column//(name = "update_time")
     public Timestamp getUpdateTime() {
         return updateTime;
     }
@@ -108,25 +144,5 @@ public class ProductInfo {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductInfo that = (ProductInfo) o;
-        return productStock == that.productStock &&
-                categoryType == that.categoryType &&
-                Objects.equals(productId, that.productId) &&
-                Objects.equals(productName, that.productName) &&
-                Objects.equals(productPrice, that.productPrice) &&
-                Objects.equals(productDescription, that.productDescription) &&
-                Objects.equals(productIcon, that.productIcon) &&
-                Objects.equals(createTime, that.createTime) &&
-                Objects.equals(updateTime, that.updateTime);
-    }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(productId, productName, productPrice, productStock, productDescription, productIcon, categoryType, createTime, updateTime);
-    }
 }
